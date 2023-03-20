@@ -219,12 +219,12 @@ namespace LinqSnippets
             // otra forma
 
 
-            var commonresult2 = firstList.Join(
+           /* var commonresult2 = firstList.Join(
                 secondList,
                 element => element,
                 secondElement => secondElement,
                 (element, secondElement) => new(element, secondElement)
-                );
+                );*/
 
 
             // OUTER JOIN - LEFT
@@ -629,9 +629,11 @@ namespace LinqSnippets
             };
 
 
+#pragma warning disable CS8603 // Posible tipo de valor devuelto de referencia nulo
             var commentsContent = posts.SelectMany(post
                  => post.Comments,
                  (post, comment) => new {PostId = post.Id, CommentContent = comment.Content});
+#pragma warning restore CS8603 // Posible tipo de valor devuelto de referencia nulo
 
         }
     }

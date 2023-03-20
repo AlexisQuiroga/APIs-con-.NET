@@ -32,6 +32,21 @@ builder.Services.AddScoped<IStudentsService, StudentsService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+// 5. CORS Configuration
+
+builder.Services.AddCors(options => 
+{
+    options.AddPolicy(name: "CorsPolicy", builder =>
+{
+    builder.AllowAnyOrigin();
+    builder.AllowAnyMethod();
+    builder.AllowAnyHeader();
+});
+});
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,5 +61,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// 6. tell app to user CORS
+
+app.UseCors("CorsPolicy");
+
 
 app.Run();
